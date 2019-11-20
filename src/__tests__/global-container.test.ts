@@ -396,6 +396,42 @@ test("@injectable handles optional params", () => {
   expect(myOptional.myFoo instanceof Foo).toBeTruthy();
 });
 
+test("injectable can be called directly", () => {
+  class Bar implements IBar {
+    public value = "";
+  }
+  injectable(Bar, []);
+
+  class Foo {
+    constructor(public myBar: Bar) {}
+  }
+  injectable(Foo, [Bar]);
+
+  const myFoo = globalContainer.resolve(Foo);
+
+  expect(myFoo.myBar.value).toBe("");
+});
+
+test("injectable can be called directly with optional dependencies", () => {
+  class Bar implements IBar {
+    public value = "";
+  }
+  injectable(Bar, []);
+
+  class Foo {
+    constructor(public myBar: Bar) {}
+  }
+  injectable(Foo, [Bar]);
+
+  class MyOptional {
+    constructor(public myFoo?: Foo) {}
+  }
+  injectable(MyOptional, [Foo]);
+
+  const myOptional = globalContainer.resolve(MyOptional);
+  expect(myOptional.myFoo instanceof Foo).toBeTruthy();
+});
+
 test("@singleton registers class as singleton with the global container", () => {
   @singleton()
   class Bar {}
@@ -418,6 +454,17 @@ test("dependencies of an @singleton can be resolved", () => {
   const myBar = globalContainer.resolve(Bar);
 
   expect(myBar.foo instanceof Foo).toBeTruthy();
+});
+
+test("singleton can be called directly", () => {
+  class Bar {}
+  singleton(Bar);
+
+  const myBar = globalContainer.resolve(Bar);
+  const myBar2 = globalContainer.resolve(Bar);
+
+  expect(myBar instanceof Bar).toBeTruthy();
+  expect(myBar).toBe(myBar2);
 });
 
 test("passes through the given params", () => {
