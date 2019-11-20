@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+var types_1 = require("./types");
+exports.Lifecycle = types_1.Lifecycle;
+tslib_1.__exportStar(require("./decorators"), exports);
+tslib_1.__exportStar(require("./factories"), exports);
+tslib_1.__exportStar(require("./providers"), exports);
+var dependency_container_1 = require("./dependency-container");
+exports.container = dependency_container_1.instance;
