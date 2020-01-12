@@ -8,9 +8,12 @@ import {typeInfo} from "../dependency-container";
  *
  * @return {Function} The class decorator
  */
-function injectable<T>(): (target: constructor<T>) => void {
+function injectable<T>(paramInfo?: any[]): (target: constructor<T>) => void {
   return function(target: constructor<T>): void {
-    typeInfo.set(target, getParamInfo(target));
+    typeInfo.set(
+      target,
+      paramInfo !== undefined ? paramInfo : getParamInfo(target)
+    );
   };
 }
 
