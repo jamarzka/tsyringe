@@ -5,5 +5,5 @@ import constructor from "../types/constructor";
  *
  * @return {Function} The class decorator
  */
-declare function injectable<T>(): (target: constructor<T>) => void;
+declare function injectable<T>(paramInfo?: any[]): (target: constructor<T>) => void;
 export default injectable;

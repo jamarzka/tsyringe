@@ -1,8 +1,8 @@
 import injectable from "./injectable";
 import { instance as globalContainer } from "../dependency-container";
-function singleton() {
+function singleton(paramInfo) {
     return function (target) {
-        injectable()(target);
+        injectable(paramInfo)(target);
         globalContainer.registerSingleton(target);
     };
 }

@@ -5,5 +5,5 @@ import constructor from "../types/constructor";
  *
  * @return {Function} The class decorator
  */
-declare function singleton<T>(): (target: constructor<T>) => void;
+declare function singleton<T>(paramInfo?: any[]): (target: constructor<T>) => void;
 export default singleton;
